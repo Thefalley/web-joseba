@@ -150,7 +150,7 @@ const InsultGenerator = () => {
         <section id="insultos" style={{ textAlign: 'center', padding: '60px 0', background: 'rgba(255,0,0,0.05)' }}>
             <div className="container">
                 <h2 style={{ fontSize: '2.5rem', marginBottom: '2rem' }}>Zona de Realidad para Mayores</h2>
-                <div className="glass" style={{ padding: '3rem', borderRadius: '30px', maxWidth: '700px', margin: '0 auto' }}>
+                <div className="glass animate-float" style={{ padding: '3rem', borderRadius: '30px', maxWidth: '700px', margin: '0 auto' }}>
                     <p style={{ fontSize: '2rem', minHeight: '3rem', marginBottom: '2rem', color: 'var(--primary)', fontWeight: 'bold' }}>
                         {insult || "Pulsa el botón para tu dosis de verdad..."}
                     </p>
@@ -286,7 +286,7 @@ const DarkHumorGenerator = ({ volume }) => {
         <section id="humor" style={{ textAlign: 'center', padding: '60px 0', background: 'rgba(45, 52, 54, 0.05)' }}>
             <div className="container">
                 <h2 style={{ fontSize: '2.5rem', marginBottom: '2rem' }}>Humor de Ultratumba</h2>
-                <div className="glass" style={{ padding: '3rem', borderRadius: '30px', maxWidth: '700px', margin: '0 auto' }}>
+                <div className="glass animate-fly-slow" style={{ padding: '3rem', borderRadius: '30px', maxWidth: '700px', margin: '0 auto' }}>
                     <p style={{ fontSize: '1.5rem', minHeight: '4rem', marginBottom: '2rem', color: '#2d3436', fontWeight: 'bold' }}>
                         {joke || "¿Te gusta el humor tan negro como el futuro de tu pensión? Dale al botón."}
                     </p>
@@ -370,7 +370,7 @@ const FatHumorGenerator = ({ volume }) => {
         <section id="humor-gordo" style={{ textAlign: 'center', padding: '60px 0', background: 'rgba(230, 126, 34, 0.05)' }}>
             <div className="container">
                 <h2 style={{ fontSize: '2.5rem', marginBottom: '2rem' }}>Humor de Alto Tonelaje</h2>
-                <div className="glass" style={{ padding: '3rem', borderRadius: '30px', maxWidth: '750px', margin: '0 auto', boxShadow: '0 20px 40px rgba(0,0,0,0.2)' }}>
+                <div className="glass animate-fly-fast" style={{ padding: '3rem', borderRadius: '30px', maxWidth: '750px', margin: '0 auto', boxShadow: '0 20px 40px rgba(0,0,0,0.2)' }}>
                     <p style={{ fontSize: '1.6rem', minHeight: '5rem', marginBottom: '2rem', color: '#d35400', fontWeight: '900', textTransform: 'uppercase' }}>
                         {joke || "¿Preparado para chistes con mucho peso? Dale al botón si te atreves."}
                     </p>
@@ -436,7 +436,7 @@ const BaldHumorGenerator = ({ volume }) => {
         <section id="humor-calvo" style={{ textAlign: 'center', padding: '60px 0', background: 'rgba(52, 152, 219, 0.05)' }}>
             <div className="container">
                 <h2 style={{ fontSize: '2.5rem', marginBottom: '2rem' }}>Humor Deslumbrante</h2>
-                <div className="glass" style={{
+                <div className="glass animate-float" style={{
                     padding: '3rem',
                     borderRadius: '30px',
                     maxWidth: '750px',
