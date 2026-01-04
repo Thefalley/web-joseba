@@ -611,7 +611,7 @@ const AudioControlPanel = ({ musicVolume, setMusicVolume, voiceVolume, setVoiceV
     );
 }
 
-const FloatingEntities = () => {
+const FloatingEntities = ({ onTriggerAlert }) => {
     const segarroJokes = [
         "¿Cuál es el colmo de un fumador? Que su marca favorita sea 'Amego Segarro' y no tenga fuego.",
         "Ayer le pedí un cigarro a un amego y me dio una charla de tres horas sobre por qué el tabaco de liar es 'más natural'.",
@@ -625,8 +625,8 @@ const FloatingEntities = () => {
             {/* Pigeon */}
             <div
                 className="animate-pigeon"
-                style={{ position: 'fixed', top: 0, left: 0, width: '120px', zIndex: 9999 }}
-                onClick={(e) => { e.stopPropagation(); alert("ALERTA PERUANO EL LA ZONA. CUBRANSE2"); }}
+                style={{ position: 'fixed', top: 0, left: 0, width: '120px', zIndex: 9999, cursor: 'pointer' }}
+                onClick={(e) => { e.stopPropagation(); onTriggerAlert("ALERTA PERUANO EL LA ZONA. CUBRANSE2"); }}
             >
                 <img src={pigeonImg} alt="Pigeon" style={{ width: '100%', filter: 'drop-shadow(0 10px 15px rgba(0,0,0,0.4))' }} />
             </div>
@@ -634,23 +634,23 @@ const FloatingEntities = () => {
             {/* Ham */}
             <div
                 className="animate-ham"
-                style={{ position: 'fixed', top: '10vh', left: '10vw', width: '150px', zIndex: 9998 }}
-                onClick={(e) => { e.stopPropagation(); alert("amego zigarro en al sala"); }}
+                style={{ position: 'fixed', top: '10vh', left: '10vw', width: '150px', zIndex: 9998, cursor: 'pointer' }}
+                onClick={(e) => { e.stopPropagation(); onTriggerAlert("amego zigarro en al sala"); }}
             >
-                <img src={hamImg} alt="Ham" style={{ width: '100%', filter: 'drop-shadow(0 10px 15px rgba(0,0,0,0.5))' }} />
+                <img src={hamImg} alt="Ham" style={{ width: '100%', mixBlendMode: 'multiply', filter: 'drop-shadow(0 10px 15px rgba(0,0,0,0.5))' }} />
             </div>
 
             {/* Segarro */}
             <div
                 className="animate-segarro"
-                style={{ position: 'fixed', bottom: '20vh', right: '10vw', width: '130px', zIndex: 9997 }}
+                style={{ position: 'fixed', bottom: '20vh', right: '10vw', width: '130px', zIndex: 9997, cursor: 'pointer' }}
                 onClick={(e) => {
                     e.stopPropagation();
                     const joke = segarroJokes[Math.floor(Math.random() * segarroJokes.length)];
-                    alert(joke);
+                    onTriggerAlert(joke);
                 }}
             >
-                <img src={segarroImg} alt="Segarro" style={{ width: '100%', filter: 'drop-shadow(0 10px 15px rgba(0,0,0,0.6))', borderRadius: '10px' }} />
+                <img src={segarroImg} alt="Segarro" style={{ width: '100%', mixBlendMode: 'multiply', filter: 'drop-shadow(0 10px 15px rgba(0,0,0,0.6))', borderRadius: '10px' }} />
             </div>
         </>
     );
@@ -683,10 +683,45 @@ function App() {
     const [showPhoto, setShowPhoto] = useState(false);
     const [musicVolume, setMusicVolume] = useState(0.5);
     const [voiceVolume, setVoiceVolume] = useState(1);
+    const [customAlert, setCustomAlert] = useState(null);
+
+    const triggerAlert = (msg) => {
+        setCustomAlert(msg);
+        // Auto-close after 4 seconds
+        setTimeout(() => setCustomAlert(null), 4000);
+    };
 
     return (
         <div style={{ position: 'relative' }}>
-            <FloatingEntities />
+            {customAlert && (
+                <div style={{
+                    position: 'fixed',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    zIndex: 10000,
+                    background: 'rgba(0,0,0,0.9)',
+                    color: '#fff',
+                    padding: '3rem',
+                    borderRadius: '30px',
+                    border: '4px solid var(--primary)',
+                    boxShadow: '0 0 50px rgba(255, 107, 107, 0.5)',
+                    textAlign: 'center',
+                    maxWidth: '80%',
+                    animation: 'fadeIn 0.3s ease-out'
+                }}>
+                    <h2 style={{ fontSize: '2.5rem', marginBottom: '1.5rem', color: 'var(--primary)' }}>⚠️ AVISO URGENTE ⚠️</h2>
+                    <p style={{ fontSize: '1.8rem', fontWeight: 'bold' }}>{customAlert}</p>
+                    <button
+                        onClick={() => setCustomAlert(null)}
+                        className="btn-primary"
+                        style={{ marginTop: '2rem' }}
+                    >
+                        ENTENDIDO
+                    </button>
+                </div>
+            )}
+            <FloatingEntities onTriggerAlert={triggerAlert} />
             <Navbar />
 
             <Hero onAction={() => setShowPhoto(true)} />
