@@ -167,7 +167,7 @@ const InsultGenerator = () => {
     );
 }
 
-const BlindInsultGenerator = () => {
+const BlindInsultGenerator = ({ volume }) => {
     const blindInsults = [
         "¿Buscas el botón? Está justo donde no puedes verlo, pedazo de topo.",
         "Si pudieras ver tu cara, preferirías seguir ciego para el resto de tus días.",
@@ -182,6 +182,7 @@ const BlindInsultGenerator = () => {
         utterance.lang = 'es-ES';
         utterance.pitch = 0.8;
         utterance.rate = 1;
+        utterance.volume = volume;
         window.speechSynthesis.speak(utterance);
     };
 
@@ -214,7 +215,7 @@ const BlindInsultGenerator = () => {
     );
 }
 
-const DarkHumorGenerator = () => {
+const DarkHumorGenerator = ({ volume }) => {
     const jokes = [
         "Mi abuelo murió en paz mientras dormía... No como los pasajeros de su coche que gritaban horrorizados.",
         "Le pregunté a mi abuela qué quería para su cumpleaños. Dijo: 'Algo que me haga parecer más joven'. Así que le compré un ataúd nuevo.",
@@ -222,7 +223,37 @@ const DarkHumorGenerator = () => {
         "Doctor, ¿cómo salió la operación de mi abuelo? - Pues... digamos que la herencia ya está disponible.",
         "He decidido que quiero morir como mi abuelo, rodeado de sus seres queridos... y no como sus víctimas en el sótano.",
         "¿Por qué los ciegos no pueden ver películas de miedo? Porque ya viven en una pesadilla constante.",
-        "Mi abuela dice que la edad es solo un número. Sí, pero en su caso es un número que se acerca peligrosamente al cero."
+        "Mi abuela dice que la edad es solo un número. Sí, pero en su caso es un número que se acerca peligrosamente al cero.",
+        "¿Sabes por qué a las abuelas les gusta ir al cementerio? Porque es como ir de escaparates.",
+        "Mi abuela es tan vieja que su certificado de nacimiento ha caducado.",
+        "Abuela, ¿qué hace ahí sentada? - Nada, esperando a que llegue mi hora. - Pues póngase cómoda, que esto va para largo.",
+        "¿Cuál es el postre favorito de una abuela? Las pastillas de la tensión con un chorrito de coñac.",
+        "Mi abuela no tiene arrugas, tiene caminos de la experiencia... que terminan en un callejón sin salida.",
+        "Doctor, ¿mi abuela tiene cura? - No, pero tiene un testamento muy interesante.",
+        "Abuela, cuéntame un cuento. - Había una vez una mujer que no tenía nietos pesados... y vivió feliz para siempre.",
+        "¿Por qué las abuelas llevan perfume de flores? Para que el enterrador se vaya acostumbrando al olor.",
+        "Mi abuela dice que ve la luz al final del túnel. Yo le digo que es el tren que viene a por ella.",
+        "¿Cuál es la diferencia entre una abuela y una batería? Que la batería tiene un lado positivo.",
+        "He decorado mi sótano con un estilo muy minimalista: solo una cadena, un grillete y mucha oscuridad.",
+        "En mi sótano no hay wifi, pero hay un silencio sepulcral que te dejará sin aliento... literalmente.",
+        "¿Por qué el sótano es el mejor sitio para los invitados? Porque nunca se quejan de la falta de luz cuando tienen la boca tapada.",
+        "Mi abuelo siempre decía: 'Si la vida te da limones, haz limonada'. Pero si la vida te da un sótano oscuro, haz una colección de... amigos silenciosos.",
+        "¿Cuál es la diferencia entre un niño y un saco de boxeo? Que el saco de boxeo no llora cuando le pegas un buen gancho.",
+        "Mi padre me enseñó que los problemas se solucionan hablando. Pero si no funciona, un cinturón de cuero soluciona el resto de la discusión.",
+        "No es que me guste pegar a la gente, es que mi mano tiene una atracción gravitatoria muy fuerte hacia las mejillas de los idiotas.",
+        "Mi sótano es como Las Vegas: lo que pasa en el sótano, se queda en el sótano... bajo tres metros de tierra.",
+        "¿Buscas la salida? Está justo detrás de la puerta cerrada con candado... buena suerte con las uñas.",
+        "El amor es como un golpe bien dado: te deja sin palabras y con un ojo morado para recordarlo.",
+        "¿Por qué las abuelas cruzan la calle tan despacio? Para darle tiempo al conductor a apuntar bien.",
+        "Ayer atropellé a una vieja. Lo peor no fue el golpe, sino que me rayó el capó con la cadera de titanio.",
+        "¿Qué es lo último que pasa por la cabeza de un viejo al ser atropellado por un camión? Sus propias vértebras.",
+        "Mi abuelo era un hombre de mundo, hasta que un autobús lo hizo un hombre de asfalto.",
+        "¿Cuál es la diferencia entre un perro y una vieja en mitad de la carretera? Que por el perro frenas.",
+        "No es que haya atropellado a tu abuela, es que la calle necesitaba un nuevo bache y ella se ofreció voluntaria.",
+        "Si ves a una abuela en un paso de cebra, recuerda: los puntos del carné se pierden, pero los puntos de estilo son para siempre.",
+        "Mi coche tiene un imán para las dentaduras postizas; cada vez que paso por un asilo, el parachoques vuelve lleno.",
+        "¿Cómo se llama una vieja que ha sido atropellada por una apisonadora? Una alfombra de bienvenida muy arrugada.",
+        "Atropellar a un anciano es como jugar a los bolos: si cae el resto de la excursión del IMSERSO, ¡pleno!"
     ];
 
     const speak = (text) => {
@@ -230,6 +261,7 @@ const DarkHumorGenerator = () => {
         utterance.lang = 'es-ES';
         utterance.pitch = 0.5; // Voice slightly deeper for dark humor
         utterance.rate = 0.9;
+        utterance.volume = volume;
         window.speechSynthesis.speak(utterance);
     };
 
@@ -262,9 +294,15 @@ const DarkHumorGenerator = () => {
     );
 }
 
-const BackgroundMusic = () => {
+const AudioControlPanel = ({ musicVolume, setMusicVolume, voiceVolume, setVoiceVolume }) => {
     const [isPlaying, setIsPlaying] = useState(false);
     const audioRef = useRef(null);
+
+    useEffect(() => {
+        if (audioRef.current) {
+            audioRef.current.volume = musicVolume;
+        }
+    }, [musicVolume]);
 
     const toggleMusic = () => {
         if (isPlaying) {
@@ -276,29 +314,78 @@ const BackgroundMusic = () => {
     };
 
     return (
-        <div style={{ position: 'fixed', bottom: '20px', right: '20px', zIndex: 2000 }}>
+        <div
+            style={{
+                position: 'fixed',
+                bottom: '20px',
+                right: '20px',
+                zIndex: 2000,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '15px'
+            }}
+        >
             <audio
                 ref={audioRef}
                 loop
                 src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
             />
+
+            <div className="glass" style={{ padding: '15px', borderRadius: '20px', display: 'flex', flexDirection: 'column', gap: '10px', width: '150px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--primary)' }}>
+                        <Music size={16} />
+                        <span style={{ fontSize: '0.9rem', fontWeight: 'bold' }}>Música</span>
+                    </div>
+                    <input
+                        type="range"
+                        min="0"
+                        max="1"
+                        step="0.05"
+                        value={musicVolume}
+                        onChange={(e) => setMusicVolume(parseFloat(e.target.value))}
+                        style={{ cursor: 'pointer', width: '100%' }}
+                    />
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--primary)' }}>
+                        <Volume2 size={16} />
+                        <span style={{ fontSize: '0.9rem', fontWeight: 'bold' }}>Voz</span>
+                    </div>
+                    <input
+                        type="range"
+                        min="0"
+                        max="1"
+                        step="0.05"
+                        value={voiceVolume}
+                        onChange={(e) => setVoiceVolume(parseFloat(e.target.value))}
+                        style={{ cursor: 'pointer', width: '100%' }}
+                    />
+                </div>
+            </div>
+
             <button
                 onClick={toggleMusic}
                 style={{
                     background: 'var(--primary)',
                     color: 'white',
                     border: 'none',
-                    width: '60px',
-                    height: '60px',
-                    borderRadius: '50%',
+                    width: '64px',
+                    height: '64px',
+                    borderRadius: '20px',
                     cursor: 'pointer',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    boxShadow: '0 4px 15px rgba(255, 107, 107, 0.4)'
+                    boxShadow: '0 8px 16px rgba(255, 107, 107, 0.3)',
+                    transition: 'transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
                 }}
+                onMouseDown={(e) => e.currentTarget.style.transform = 'scale(0.9)'}
+                onMouseUp={(e) => e.currentTarget.style.transform = 'scale(1)'}
             >
-                {isPlaying ? <Volume2 size={32} /> : <VolumeX size={32} />}
+                {isPlaying ? <Volume2 size={32} /> : <Music size={32} />}
             </button>
         </div>
     );
@@ -329,10 +416,13 @@ const MonkeySection = () => (
 
 function App() {
     const [showPhoto, setShowPhoto] = useState(false);
+    const [musicVolume, setMusicVolume] = useState(0.5);
+    const [voiceVolume, setVoiceVolume] = useState(1);
 
     return (
         <div>
             <Navbar />
+
             <Hero onAction={() => setShowPhoto(true)} />
 
             {showPhoto && (
@@ -369,10 +459,15 @@ function App() {
             <Services />
             <MonkeySection />
             <InsultGenerator />
-            <BlindInsultGenerator />
-            <DarkHumorGenerator />
+            <BlindInsultGenerator volume={voiceVolume} />
+            <DarkHumorGenerator volume={voiceVolume} />
             <Footer />
-            <BackgroundMusic />
+            <AudioControlPanel
+                musicVolume={musicVolume}
+                setMusicVolume={setMusicVolume}
+                voiceVolume={voiceVolume}
+                setVoiceVolume={setVoiceVolume}
+            />
         </div>
     )
 }
