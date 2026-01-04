@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Heart, Phone, Calendar, User, ChevronRight, Volume2, VolumeX, Music } from 'lucide-react'
 import grandmaImg from './assets/vieja-gorda.jpg'
-import monoPuroImg from './assets/mono-puro.png'
+import monoPuro from './assets/mono-puro.png';
+import pigeonImg from './assets/pigeon.png';
+import hamImg from './assets/ham.jpg';
+import segarroImg from './assets/segarro.jpg';
 import monoImg from './assets/mono.png'
 
 const Navbar = () => (
@@ -474,59 +477,64 @@ const BaldHumorGenerator = ({ volume }) => {
 
 const AudioControlPanel = ({ musicVolume, setMusicVolume, voiceVolume, setVoiceVolume }) => {
     const [isPlaying, setIsPlaying] = useState(false);
-    const playerRef = useRef(null);
-    const [isApiReady, setIsApiReady] = useState(false);
+    const [player, setPlayer] = useState(null);
 
     useEffect(() => {
-        // Load YouTube API
-        if (!window.YT) {
-            const tag = document.createElement('script');
-            tag.src = "https://www.youtube.com/iframe_api";
-            const firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        const loadYT = () => {
+            if (!window.YT) {
+                const tag = document.createElement('script');
+                tag.src = "https://www.youtube.com/iframe_api";
+                const firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            }
 
             window.onYouTubeIframeAPIReady = () => {
-                createPlayer();
-            };
-        } else {
-            createPlayer();
-        }
-
-        function createPlayer() {
-            playerRef.current = new window.YT.Player('youtube-player', {
-                height: '0',
-                width: '0',
-                videoId: '9HWuF8wkGYM',
-                playerVars: {
-                    autoplay: 0,
-                    loop: 1,
-                    playlist: '9HWuF8wkGYM'
-                },
-                events: {
-                    onReady: (event) => {
-                        setIsApiReady(true);
-                        event.target.setVolume(musicVolume * 100);
+                const newPlayer = new window.YT.Player('youtube-player', {
+                    height: '0',
+                    width: '0',
+                    videoId: '9HWuF8wkGYM',
+                    playerVars: {
+                        autoplay: 0,
+                        loop: 1,
+                        playlist: '9HWuF8wkGYM'
+                    },
+                    events: {
+                        onReady: (event) => {
+                            event.target.setVolume(musicVolume * 100);
+                            setPlayer(event.target);
+                        }
                     }
-                }
-            });
-        }
+                });
+            };
+
+            // If API already loaded but ready event already fired
+            if (window.YT && window.YT.Player) {
+                window.onYouTubeIframeAPIReady();
+            }
+        };
+
+        loadYT();
     }, []);
 
     useEffect(() => {
-        if (isApiReady && playerRef.current && playerRef.current.setVolume) {
-            playerRef.current.setVolume(musicVolume * 100);
+        if (player && player.setVolume) {
+            player.setVolume(musicVolume * 100);
         }
-    }, [musicVolume, isApiReady]);
+    }, [musicVolume, player]);
 
     const toggleMusic = () => {
-        if (!isApiReady) return;
+        if (!player) return;
 
-        if (isPlaying) {
-            playerRef.current.pauseVideo();
-        } else {
-            playerRef.current.playVideo();
+        try {
+            if (isPlaying) {
+                player.pauseVideo();
+            } else {
+                player.playVideo();
+            }
+            setIsPlaying(!isPlaying);
+        } catch (e) {
+            console.error("YouTube Player Error:", e);
         }
-        setIsPlaying(!isPlaying);
     };
 
     return (
@@ -535,14 +543,14 @@ const AudioControlPanel = ({ musicVolume, setMusicVolume, voiceVolume, setVoiceV
                 position: 'fixed',
                 bottom: '20px',
                 right: '20px',
-                zIndex: 2000,
+                zIndex: 3000,
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
                 gap: '15px'
             }}
         >
-            <div id="youtube-player" style={{ display: 'none' }}></div>
+            <div id="youtube-player" style={{ position: 'absolute', opacity: 0, pointerEvents: 'none' }}></div>
 
             <div className="glass" style={{ padding: '15px', borderRadius: '20px', display: 'flex', flexDirection: 'column', gap: '10px', width: '150px' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
@@ -603,13 +611,58 @@ const AudioControlPanel = ({ musicVolume, setMusicVolume, voiceVolume, setVoiceV
     );
 }
 
+const FloatingEntities = () => {
+    const segarroJokes = [
+        "¿Cuál es el colmo de un fumador? Que su marca favorita sea 'Amego Segarro' y no tenga fuego.",
+        "Ayer le pedí un cigarro a un amego y me dio una charla de tres horas sobre por qué el tabaco de liar es 'más natural'.",
+        "Amego, dame un cigarro... - ¿Tienes fuego? - No. - Entonces para qué quieres el cigarro.",
+        "Fumar mata, pero el precio del tabaco te remata antes de que llegues al cáncer.",
+        "Tu marca de tabaco es tan barata que los camellos la usan como repelente de mosquitos."
+    ];
+
+    return (
+        <>
+            {/* Pigeon */}
+            <div
+                className="animate-pigeon"
+                style={{ position: 'fixed', top: 0, left: 0, width: '120px', zIndex: 9999 }}
+                onClick={(e) => { e.stopPropagation(); alert("ALERTA PERUANO EL LA ZONA. CUBRANSE2"); }}
+            >
+                <img src={pigeonImg} alt="Pigeon" style={{ width: '100%', filter: 'drop-shadow(0 10px 15px rgba(0,0,0,0.4))' }} />
+            </div>
+
+            {/* Ham */}
+            <div
+                className="animate-ham"
+                style={{ position: 'fixed', top: '10vh', left: '10vw', width: '150px', zIndex: 9998 }}
+                onClick={(e) => { e.stopPropagation(); alert("amego zigarro en al sala"); }}
+            >
+                <img src={hamImg} alt="Ham" style={{ width: '100%', filter: 'drop-shadow(0 10px 15px rgba(0,0,0,0.5))' }} />
+            </div>
+
+            {/* Segarro */}
+            <div
+                className="animate-segarro"
+                style={{ position: 'fixed', bottom: '20vh', right: '10vw', width: '130px', zIndex: 9997 }}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    const joke = segarroJokes[Math.floor(Math.random() * segarroJokes.length)];
+                    alert(joke);
+                }}
+            >
+                <img src={segarroImg} alt="Segarro" style={{ width: '100%', filter: 'drop-shadow(0 10px 15px rgba(0,0,0,0.6))', borderRadius: '10px' }} />
+            </div>
+        </>
+    );
+};
+
 const MonkeySection = () => (
     <section id="monos" style={{ textAlign: 'center', padding: '100px 0', background: 'linear-gradient(rgba(254, 202, 87, 0.1), transparent)' }}>
         <div className="container">
             <h2 style={{ fontSize: '3rem', marginBottom: '3rem' }}>El <span className="gradient-text">Clan de los Monos</span></h2>
             <div style={{ display: 'flex', gap: '2rem', justifyContent: 'center', flexWrap: 'wrap' }}>
                 <div className="glass animate-fade-in" style={{ padding: '1.5rem', borderRadius: '24px', maxWidth: '400px' }}>
-                    <img src={monoPuroImg} alt="Mono Puro" style={{ width: '100%', borderRadius: '16px', marginBottom: '1rem' }} />
+                    <img src={monoPuro} alt="Mono Puro" style={{ width: '100%', borderRadius: '16px', marginBottom: '1rem' }} />
                     <h3 style={{ marginBottom: '0.5rem' }}>El General</h3>
                     <p style={{ color: 'var(--text-muted)' }}>Te vigila mientras intentas entender cómo funciona el ratón.</p>
                 </div>
@@ -632,7 +685,8 @@ function App() {
     const [voiceVolume, setVoiceVolume] = useState(1);
 
     return (
-        <div>
+        <div style={{ position: 'relative' }}>
+            <FloatingEntities />
             <Navbar />
 
             <Hero onAction={() => setShowPhoto(true)} />

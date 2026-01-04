@@ -52,6 +52,83 @@ h3 {
 }
 
 /* Animations */
+@keyframes fly-pigeon {
+  0% {
+    transform: translate(-150px, 20vh) rotate(10deg);
+  }
+
+  25% {
+    transform: translate(40vw, 10vh) rotate(-5deg);
+  }
+
+  50% {
+    transform: translate(110vw, 40vh) rotate(15deg);
+  }
+
+  75% {
+    transform: translate(50vw, 80vh) rotate(-10deg);
+  }
+
+  100% {
+    transform: translate(-150px, 20vh) rotate(10deg);
+  }
+}
+
+@keyframes fly-ham {
+  0% {
+    transform: translate(110vw, 10vh) rotate(0deg);
+  }
+
+  33% {
+    transform: translate(50vw, 60vh) rotate(180deg);
+  }
+
+  66% {
+    transform: translate(-150px, 30vh) rotate(360deg);
+  }
+
+  100% {
+    transform: translate(110vw, 10vh) rotate(720deg);
+  }
+}
+
+@keyframes fly-segarro {
+  0% {
+    transform: translate(50vw, 110vh) scale(1);
+  }
+
+  25% {
+    transform: translate(10vw, 50vh) scale(1.2);
+  }
+
+  50% {
+    transform: translate(50vw, -150px) scale(1);
+  }
+
+  75% {
+    transform: translate(90vw, 50vh) scale(0.8);
+  }
+
+  100% {
+    transform: translate(50vw, 110vh) scale(1);
+  }
+}
+
+.animate-pigeon {
+  animation: fly-pigeon 20s linear infinite;
+  cursor: pointer;
+}
+
+.animate-ham {
+  animation: fly-ham 25s linear infinite;
+  cursor: pointer;
+}
+
+.animate-segarro {
+  animation: fly-segarro 18s ease-in-out infinite;
+  cursor: pointer;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
