@@ -216,6 +216,7 @@ const BlindInsultGenerator = ({ volume }) => {
 }
 
 const DarkHumorGenerator = ({ volume }) => {
+    const [joke, setJoke] = useState("");
     const jokes = [
         "Mi abuelo murió en paz mientras dormía... No como los pasajeros de su coche que gritaban horrorizados.",
         "Le pregunté a mi abuela qué quería para su cumpleaños. Dijo: 'Algo que me haga parecer más joven'. Así que le compré un ataúd nuevo.",
@@ -250,10 +251,20 @@ const DarkHumorGenerator = ({ volume }) => {
         "Mi abuelo era un hombre de mundo, hasta que un autobús lo hizo un hombre de asfalto.",
         "¿Cuál es la diferencia entre un perro y una vieja en mitad de la carretera? Que por el perro frenas.",
         "No es que haya atropellado a tu abuela, es que la calle necesitaba un nuevo bache y ella se ofreció voluntaria.",
-        "Si ves a una abuela en un paso de cebra, recuerda: los puntos del carné se pierden, pero los puntos de estilo son para siempre.",
+        "Si ver a una abuela en un paso de cebra, recuerda: los puntos del carné se pierden, pero los puntos de estilo son para siempre.",
         "Mi coche tiene un imán para las dentaduras postizas; cada vez que paso por un asilo, el parachoques vuelve lleno.",
         "¿Cómo se llama una vieja que ha sido atropellada por una apisonadora? Una alfombra de bienvenida muy arrugada.",
-        "Atropellar a un anciano es como jugar a los bolos: si cae el resto de la excursión del IMSERSO, ¡pleno!"
+        "Atropellar a un anciano es como jugar a los bolos: si cae el resto de la excursión del IMSERSO, ¡pleno!",
+        "¿Cuál es la diferencia entre una abuela y una cebolla? Que cuando troceas a la abuela te ríes, y con la cebolla lloras.",
+        "Mi abuelo murió gritando de terror, mientras que el resto de los pasajeros del autobús dormían plácidamente. Fue el mejor conductor que he conocido.",
+        "¿Por qué el cementerio está rodeado por un muro? Porque la gente se muere por entrar... y los de dentro no tienen prisa por salir.",
+        "¿Qué es blanco, negro y rojo y no puede cruzar una puerta giratoria? Una vieja con una lanza atravesada en el pecho.",
+        "Ayer mi abuela me pidió que le pasara el champú, pero yo le pasé el pegamento extrafuerte. ¡Vaya cara que se le quedó! Literalmente, se le quedó así para siempre.",
+        "Si la vida te da limones, haz limonada. Si la vida te da una abuela con demencia, dile que ha ganado la lotería todos los días para verla feliz un segundo antes de que se le olvide.",
+        "Mi abuela quería morir rodeada de flores. Así que la llevamos al jardín y la enterramos viva. Estaba rodeada, técnicamente no mentimos.",
+        "¿Cuál es la diferencia entre un trampolín y una vieja? Que para saltar en el trampolín te quitas los zapatos.",
+        "El humor negro es como las piernas: unos tienen y otros no. Mi abuelo no tiene, se las comió la diabetes.",
+        "¿Por qué los huérfanos no pueden jugar al escondite? Porque nadie los busca."
     ];
 
     const speak = (text) => {
@@ -267,6 +278,7 @@ const DarkHumorGenerator = ({ volume }) => {
 
     const handleJokeClick = () => {
         const randomJoke = jokes[Math.floor(Math.random() * jokes.length)];
+        setJoke(randomJoke);
         speak(randomJoke);
     };
 
@@ -275,8 +287,8 @@ const DarkHumorGenerator = ({ volume }) => {
             <div className="container">
                 <h2 style={{ fontSize: '2.5rem', marginBottom: '2rem' }}>Humor de Ultratumba</h2>
                 <div className="glass" style={{ padding: '3rem', borderRadius: '30px', maxWidth: '700px', margin: '0 auto' }}>
-                    <p style={{ fontSize: '1.2rem', marginBottom: '2rem', color: 'var(--text-muted)' }}>
-                        ¿Te gusta el humor tan negro como el futuro de tu pensión? Dale al botón.
+                    <p style={{ fontSize: '1.5rem', minHeight: '4rem', marginBottom: '2rem', color: '#2d3436', fontWeight: 'bold' }}>
+                        {joke || "¿Te gusta el humor tan negro como el futuro de tu pensión? Dale al botón."}
                     </p>
                     <button
                         onClick={handleJokeClick}
@@ -294,21 +306,225 @@ const DarkHumorGenerator = ({ volume }) => {
     );
 }
 
+const FatHumorGenerator = ({ volume }) => {
+    const [joke, setJoke] = useState("");
+    const jokes = [
+        "¿Por qué los gordos son excelentes amigos? Porque nunca te dejarán plantado... literalmente no pueden levantarse del sitio.",
+        "Mi vecino es tan gordo que su grupo sanguíneo es Nocilla.",
+        "¿Cómo se llama un gordo en un incendio? Una barbacoa de autoservicio.",
+        "Ayer vi a un gordo corriendo. Fue un momento histórico, el suelo todavía tiene pesadillas con el terremoto.",
+        "¿Cuál es el deporte favorito de la gente con sobrepeso? El levantamiento de tapa de yogur.",
+        "Mi prima es tan gorda que para darle un abrazo hay que pedir una licencia de obras.",
+        "¿Por qué los gordos no van al cielo? Porque la escalera mecánica de San Pedro tiene un límite de peso.",
+        "No es que estés gordo, es que tu cuerpo ha decidido guardar comida para la Tercera Guerra Mundial... y para la Cuarta también.",
+        "¿Cuál es la diferencia entre un gordo y una rueda? Que la rueda deja de rodar cuando llegas al destino.",
+        "Ayer un gordo me pidió que lo ayudara a bajar de peso. Le dije que se tirara por un barranco, la gravedad hace el resto del trabajo sucio.",
+        "Mi tío es tan gordo que su sombra tiene masa gravitatoria propia.",
+        "¿Por qué los gordos no pueden ser ninjas? Porque el sigilo no funciona cuando tus pasos suenan como un bombo.",
+        "La dieta de mi hermana es muy simple: si no puede ver sus pies, es que no necesita más postre.",
+        "¿Cuál es el animal más cercano a una persona con obesidad mórbida? El sofá, porque ya han empezado el proceso de fusión molecular.",
+        "Ayer un gordo se cayó en la calle y la NASA detectó una perturbación en la rotación terrestre.",
+        "Subí a la báscula y me dijo: 'De uno en uno, por favor, que no soy el suelo de un gimnasio'.",
+        "Mi primo es tan gordo que cuando cruza un puente, los ingenieros de Fomento activan el protocolo de terremoto de nivel 8.",
+        "En el ascensor, no le das al botón del piso, le das directamente al de 'Sobrecarga' por pura costumbre.",
+        "Eres un zampa bollos profesional: tu único récord olímpico es el de la apnea mientras devoras una caja de donuts sin respirar.",
+        "Tus lorcitas tienen vida propia; ayer vi a una de ellas intentando pedir un taxi para irse a vivir a una granja de mantequilla.",
+        "La báscula no te marca el peso, te marca el código postal del planeta más cercano con una gravedad que soporte tu masa.",
+        "¿Por qué nunca usas ascensores? Porque el cartel de 'Máximo 6 personas' te lo tomas como un reto personal y no como una advertencia de seguridad.",
+        "Cuando caminas por un puente de madera, los clavos saltan como palomitas de maíz por puro pánico acústico.",
+        "Eres tan zampa bollos que el panadero local ha podido jubilarse antes de tiempo gracias a tu adicción a los glúcidos de absorción rápida.",
+        "Tus lorcitas son como un mapa del tesoro, pero el único tesoro que esconden son migas de galletas de hace tres meses.",
+        "Para ti, el kebab no es cena, es un suplemento vitamínico que te tomas entre hamburguesa y hamburguesa.",
+        "Tu relación con el sofá es tan íntima que ya habéis empezado a compartir el ADN y la tapicería.",
+        "¿Por qué cuando vas al zoo los cerditos te saludan? Porque piensan que ha llegado la jefa de la manada para la hora del rancho.",
+        "No es que seas una morsa, es que las morsas te tienen envidia por tu capacidad de almacenar grasa abdominal sin necesidad de vivir en el Ártico.",
+        "Cuando entras al recinto de los gorilas, los machos alfa se apartan por respeto a un animal de alto peso como tú.",
+        "Eres como un golem de elixir: cuando te mueves, el suelo tiembla y cuando te mueres, dejas dos mini-gordas igual de pesadas.",
+        "Tu dieta es tan extrema que la hamburguesa ha pasado de ser comida a ser tu principal grupo sanguíneo.",
+        "Si te pierdes en el zoo, no te buscan en la salida, te buscan en el foso de los hipopótamos porque te confunden con el paisaje.",
+        "Ayer te vieron merendando y los animales de alto peso del documental de La 2 se sintieron acomplejados por tu ritmo de masticación.",
+        "Eres un golem de elixir en la vida real: si te pinchan, sueltas aceite de freidora en lugar de elixir rosa.",
+        "Es más fácil saltarte que rodearte, porque para darte la vuelta completa necesito un GPS y tres días de provisiones.",
+        "No eres una persona, eres un planeta gaseoso; tienes tu propio campo gravitatorio y tres lunas orbitando alrededor de tu ombligo.",
+        "Tu médico no te recomienda dieta, te recomienda que te inscribas en el registro de cuerpos celestes de la NASA.",
+        "¿Cuál es la diferencia entre tú y Júpiter? Que Júpiter tiene anillos y tú tienes michelines que se ven desde la estación espacial internacional.",
+        "Eres tan grande que cuando te sientas en la playa, la marea sube en el otro lado del océano por desplazamiento de masa planetaria."
+    ];
+
+    const speak = (text) => {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'es-ES';
+        utterance.pitch = 0.8;
+        utterance.rate = 0.85;
+        utterance.volume = volume;
+        window.speechSynthesis.speak(utterance);
+    };
+
+    const handleJokeClick = () => {
+        const randomJoke = jokes[Math.floor(Math.random() * jokes.length)];
+        setJoke(randomJoke);
+        speak(randomJoke);
+    };
+
+    return (
+        <section id="humor-gordo" style={{ textAlign: 'center', padding: '60px 0', background: 'rgba(230, 126, 34, 0.05)' }}>
+            <div className="container">
+                <h2 style={{ fontSize: '2.5rem', marginBottom: '2rem' }}>Humor de Alto Tonelaje</h2>
+                <div className="glass" style={{ padding: '3rem', borderRadius: '30px', maxWidth: '750px', margin: '0 auto', boxShadow: '0 20px 40px rgba(0,0,0,0.2)' }}>
+                    <p style={{ fontSize: '1.6rem', minHeight: '5rem', marginBottom: '2rem', color: '#d35400', fontWeight: '900', textTransform: 'uppercase' }}>
+                        {joke || "¿Preparado para chistes con mucho peso? Dale al botón si te atreves."}
+                    </p>
+                    <button
+                        onClick={handleJokeClick}
+                        className="btn-primary"
+                        style={{
+                            background: 'linear-gradient(135deg, #e67e22, #d35400)',
+                            color: '#fff',
+                            transform: 'scale(1.1)',
+                            fontWeight: 'bold'
+                        }}
+                    >
+                        CHISTE XL
+                    </button>
+                </div>
+            </div>
+        </section>
+    );
+}
+
+const BaldHumorGenerator = ({ volume }) => {
+    const [joke, setJoke] = useState("");
+    const jokes = [
+        "¿Por qué los calvos siempre están contentos? Porque no tienen ni un pelo de tontos... ni de nada.",
+        "Mi amigo es tan calvo que cuando se lava la cara no sabe dónde parar.",
+        "¿Cuál es el postre favorito de un calvo? El helado de 'corte'.",
+        "Ayer vi a un calvo con un tatuaje de un conejo en la coronilla. Dice que desde lejos parece un pelo.",
+        "¿Por qué los calvos no usan champú? Porque usan abrillantador de suelos.",
+        "Mi jefe es tan calvo que su cabeza parece un rodillazo en un jersey de lana.",
+        "¿Cómo se llama un calvo que se echa colonia? Una bola de discoteca con olor a hombre.",
+        "Los calvos no tienen caspa, tienen nieve en el parquet.",
+        "¿Cuál es la diferencia entre un calvo y una bola de cristal? Que la bola de cristal tiene futuro.",
+        "Ayer le regalé un peine a un calvo. Aún está buscando por dónde empezar.",
+        "No es que seas calvo, es que tu cara ha decidido expandir su territorio.",
+        "¿Por qué los calvos cruzan la calle en zigzag? Para que el reflejo del sol no ciegue a los conductores.",
+        "Un calvo en la nieve es un peligro público: nunca sabes si es una montaña o un huevo de pascua gigante.",
+        "¿Cómo se sabe si un calvo se ha lavado la cabeza? Porque brilla más que el futuro de un becario.",
+        "Mi padre dice que el pelo es para los débiles. Él es tan fuerte que el pelo le tiene miedo.",
+        "¿Cuál es el colmo de un calvo? Perder el juicio y no poder mesarse los cabellos.",
+        "¿Qué hace un calvo con un cepillo? Nada, lo tiene de recordatorio de tiempos mejores.",
+        "Mi tío es tan calvo que cuando se pone un jersey de cuello alto parece un desodorante de bola.",
+        "¿Por qué los calvos no pueden ser abogados? Porque no tienen ni un pelo de tontos, pero tampoco tienen pruebas que peinar.",
+        "Venderle un crecepelo a un calvo es como venderle un piano a una ballena: mucha esperanza y cero resultados."
+    ];
+
+    const speak = (text) => {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'es-ES';
+        utterance.pitch = 1.2;
+        utterance.rate = 1.0;
+        utterance.volume = volume;
+        window.speechSynthesis.speak(utterance);
+    };
+
+    const handleJokeClick = () => {
+        const randomJoke = jokes[Math.floor(Math.random() * jokes.length)];
+        setJoke(randomJoke);
+        speak(randomJoke);
+    };
+
+    return (
+        <section id="humor-calvo" style={{ textAlign: 'center', padding: '60px 0', background: 'rgba(52, 152, 219, 0.05)' }}>
+            <div className="container">
+                <h2 style={{ fontSize: '2.5rem', marginBottom: '2rem' }}>Humor Deslumbrante</h2>
+                <div className="glass" style={{
+                    padding: '3rem',
+                    borderRadius: '30px',
+                    maxWidth: '750px',
+                    margin: '0 auto',
+                    boxShadow: '0 10px 30px rgba(255, 255, 255, 0.1)',
+                    background: 'linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.05))',
+                    border: '1px solid rgba(255,255,255,0.3)'
+                }}>
+                    <p style={{
+                        fontSize: '1.6rem',
+                        minHeight: '5rem',
+                        marginBottom: '2rem',
+                        color: '#2980b9',
+                        fontWeight: 'bold',
+                        textShadow: '0 0 10px rgba(52, 152, 219, 0.2)'
+                    }}>
+                        {joke || "¿Quieres algo que brille más que tu futuro? Dale al botón."}
+                    </p>
+                    <button
+                        onClick={handleJokeClick}
+                        className="btn-primary"
+                        style={{
+                            background: 'linear-gradient(135deg, #3498db, #2980b9)',
+                            color: '#fff',
+                            boxShadow: '0 0 20px rgba(52, 152, 219, 0.5)'
+                        }}
+                    >
+                        CHISTE BRILLANTE
+                    </button>
+                </div>
+            </div>
+        </section>
+    );
+}
+
 const AudioControlPanel = ({ musicVolume, setMusicVolume, voiceVolume, setVoiceVolume }) => {
     const [isPlaying, setIsPlaying] = useState(false);
-    const audioRef = useRef(null);
+    const playerRef = useRef(null);
+    const [isApiReady, setIsApiReady] = useState(false);
 
     useEffect(() => {
-        if (audioRef.current) {
-            audioRef.current.volume = musicVolume;
+        // Load YouTube API
+        if (!window.YT) {
+            const tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+            window.onYouTubeIframeAPIReady = () => {
+                createPlayer();
+            };
+        } else {
+            createPlayer();
         }
-    }, [musicVolume]);
+
+        function createPlayer() {
+            playerRef.current = new window.YT.Player('youtube-player', {
+                height: '0',
+                width: '0',
+                videoId: '9HWuF8wkGYM',
+                playerVars: {
+                    autoplay: 0,
+                    loop: 1,
+                    playlist: '9HWuF8wkGYM'
+                },
+                events: {
+                    onReady: (event) => {
+                        setIsApiReady(true);
+                        event.target.setVolume(musicVolume * 100);
+                    }
+                }
+            });
+        }
+    }, []);
+
+    useEffect(() => {
+        if (isApiReady && playerRef.current && playerRef.current.setVolume) {
+            playerRef.current.setVolume(musicVolume * 100);
+        }
+    }, [musicVolume, isApiReady]);
 
     const toggleMusic = () => {
+        if (!isApiReady) return;
+
         if (isPlaying) {
-            audioRef.current.pause();
+            playerRef.current.pauseVideo();
         } else {
-            audioRef.current.play();
+            playerRef.current.playVideo();
         }
         setIsPlaying(!isPlaying);
     };
@@ -326,11 +542,7 @@ const AudioControlPanel = ({ musicVolume, setMusicVolume, voiceVolume, setVoiceV
                 gap: '15px'
             }}
         >
-            <audio
-                ref={audioRef}
-                loop
-                src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
-            />
+            <div id="youtube-player" style={{ display: 'none' }}></div>
 
             <div className="glass" style={{ padding: '15px', borderRadius: '20px', display: 'flex', flexDirection: 'column', gap: '10px', width: '150px' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
@@ -457,10 +669,12 @@ function App() {
             )}
 
             <Services />
+            <DarkHumorGenerator volume={voiceVolume} />
+            <FatHumorGenerator volume={voiceVolume} />
+            <BaldHumorGenerator volume={voiceVolume} />
             <MonkeySection />
             <InsultGenerator />
             <BlindInsultGenerator volume={voiceVolume} />
-            <DarkHumorGenerator volume={voiceVolume} />
             <Footer />
             <AudioControlPanel
                 musicVolume={musicVolume}
